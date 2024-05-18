@@ -24,7 +24,6 @@ set noswapfile
 set backupdir=~/.cache/vim
 
 call plug#begin('~/.config/nvim')
-Plug 'dracula/vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -32,5 +31,13 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Themes
+Plug 'catppuccin/nvim', {'name': 'catppuccin', 'priority': 100} 
 call plug#end()
+
+colorscheme catppuccin
+
 
