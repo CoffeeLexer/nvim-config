@@ -29,6 +29,14 @@ set backupdir=~/.cache/vim
 set guifont=Cousine\ Nerd\ Font\ Mono:h12
 
 call plug#begin('~/.config/nvim')
+
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'BurntSushi/ripgrep'
+Plug 'sharkdp/fd'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-tree/nvim-web-devicons'
+
 Plug 'ryanoasis/vim-devicons'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -45,29 +53,42 @@ Plug 'cpea2506/relative-toggle.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'AlexvZyl/nordic.nvim'
+Plug 'oxfist/night-owl.nvim'
 
 " Themes
 Plug 'catppuccin/nvim', {'name': 'catppuccin', 'priority': 100}
 call plug#end()
 
-colorscheme catppuccin
+colorscheme night-owl
 
- "Example binding -- only works in a c/cpp file
-autocmd! Filetype c,cpp map<buffer> <C-e> :Ouroboros<cr>
-autocmd VimEnter * NERDTree
+"autocmd VimEnter * NERDTree
 
+
+nnoremap <leader>/ :call NERDComment(0,"toggle")<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
 
-
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>p <cmd>Telescope find_files<cr>
+nnoremap <leader>F <cmd>Telescope live_grep<cr>
+nnoremap <leader>f <cmd>Telescope buffers<cr>
 
 nnoremap <leader>diff <cmd>DiffviewOpen<cr>
 nnoremap <leader>hist <cmd>DiffviewFileHistory<cr>
 
-nnoremap <leader>nerd <cmd>NERDTree<cr>
+nnoremap <leader>t <cmd>NERDTreeToggle<cr>
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+noremap <leader>q :tabclose<cr>
 
 " :help compl-generic auto completer <C>y -> tab
 lua << END
