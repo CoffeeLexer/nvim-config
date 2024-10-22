@@ -50,7 +50,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jakemason/ouroboros', {'requires': 'nvim-lua/plenary.nvim'}
 Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.6'}
-"Plug 'hrsh7th/nvim-cmp'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
@@ -67,7 +66,6 @@ Plug 'romgrk/barbar.nvim'
 Plug 'yamatsum/nvim-cursorline'
 Plug 'doctorfree/cheatsheet.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'airblade/vim-gitgutter'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -82,12 +80,17 @@ Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'dcampos/nvim-snippy'
 Plug 'dcampos/cmp-snippy'
-
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'folke/todo-comments.nvim'
+Plug 'folke/noice.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'rcarriga/nvim-notify'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 " Themes
 Plug 'catppuccin/nvim', {'name': 'catppuccin', 'priority': 100}
 call plug#end()
 
-colorscheme night-owl
+colorscheme catppuccin
 
 nnoremap <leader>/ :call nerdcommenter#Comment(0,"toggle")<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
@@ -117,9 +120,30 @@ noremap <leader>q :tabclose<cr>
 " :help compl-generic auto completer <C>y -> tab
 
 lua << EOF
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+require('gitsigns').setup()
+require('treesitter-context').setup()
+require('todo-comments').setup()
 require('lualine').setup {
   options = {
-    theme = 'horizon'
+    theme = 'nightfly'
   }
 }
 require('nvim-cursorline').setup {
